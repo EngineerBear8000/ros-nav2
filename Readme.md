@@ -6,6 +6,11 @@ ros2 launch snail_bot launch_sim.launch.py world:=./src/snail_bot/worlds/playfie
 
 run launch file for gazebo, rsp, lidar and ros_control stuff
 
+ros2 launch slam_toolbox online_async_launch.py params_file:=./src/snail_bot/config/mapper_params_online_async.yaml use_sim_time:=true
+
+launch slam
+
 install ros-foxy-ros2-control ros-foxy-ros2-controllers slam-toolbox
 
 might need ros-foxy-gazebo-ros2-control
+
