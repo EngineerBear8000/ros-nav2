@@ -21,11 +21,31 @@ def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time')
     slam_params_file = LaunchConfiguration('slam_params_file')
+    param_file_name =  'snail.yaml'
+    
+    param_dir = LaunchConfiguration(
+        'params_file',
+        default=os.path.join('/home/mrs/test_ws/src/snail_bot/param/',param_file_name))
+
+    map_dir = LaunchConfiguration(
+        'map',
+        default=os.path.join('/home/mrs/test_ws/','map_save.yaml'))
+
+    declare_map =  DeclareLaunchArgument(
+        'map',
+        default_value=map_dir,
+        description='Full path to map file to load')
+
+    declare_params = DeclareLaunchArgument(
+        'params_file',
+        default_value=param_dir,
+        description='Full path to param file to load')
 
     declare_use_sim_time_argument = DeclareLaunchArgument(
         'use_sim_time',
         default_value='true',
         description='Use simulation/Gazebo clock')
+
     declare_slam_params_file_cmd = DeclareLaunchArgument(
         'slam_params_file',
         default_value=os.path.join(get_package_share_directory("slam_toolbox"),
@@ -36,7 +56,7 @@ def generate_launch_description():
     rsp = IncludeLaunchDescription(         #robot state publisher "node"
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory(package_name),'launch','rsp.launch.py'
-                )]), launch_arguments={'use_sim_time': 'true'}.items()
+                )]), launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
     # Include the Gazebo launch file, provided by the gazebo_ros package
@@ -74,28 +94,75 @@ def generate_launch_description():
         name='slam_toolbox',
         output='screen')
 
+    # map_server = Node(
+    #     parameters=[
+    #       {'yaml_filename': map_file},
+    #       {'use_sim_time': use_sim_time}
+    #     ],
+    #     package='nav2_map_server',
+    #     executable='map_server',
+    #     name='map_server',
+    #     output='screen')
+
+    # nav2_lifecycle_map_mangr = Node(
+    #     package='nav2_lifecycle_manager',
+    #     executable='lifecycle_manager',
+    #     name='lifecycle_manager_mapper',
+    #     output='screen',
+    #     parameters=[
+    #       {'autostart': True},
+    #       {'use_sim_time': use_sim_time},
+    #       {'node_names': ['map_server']}  
+    #     ])
+
+    # amcl = Node(
+    #     parameters=[
+    #       {'use_sim_time': use_sim_time}
+    #     ],
+    #     package='nav2_amcl',
+    #     executable='amcl',
+    #     name='amcl',
+    #     output='screen')
+
+    # nav2_lifecycle_amcl_mangr = Node(
+    #     package='nav2_util',
+    #     executable='life',
+    #     name='lifecycle_manager_amcl',
+    #     output='screen',
+    #     parameters=[
+    #       {'autostart': True},
+    #       {'use_sim_time': use_sim_time},
+    #       {'node_names': ['amcl']}  
+    #     ])
+    
+    nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
+    
+    navstack = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
+            launch_arguments={
+                'map': map_dir,
+                'use_sim_time': use_sim_time,
+                'params_file': param_dir}.items(),
+    )
+
     ld = LaunchDescription()
 
     ld.add_action(declare_use_sim_time_argument)
     ld.add_action(declare_slam_params_file_cmd)
+    ld.add_action(declare_map)
+    ld.add_action(declare_params)
+    
     ld.add_action(rsp)
     ld.add_action(gazebo)
     ld.add_action(spawn_entity)
     ld.add_action(diff_drive_spawner)
     ld.add_action(joint_broad_spawner)
-    ld.add_action(start_async_slam_toolbox_node)
+    ld.add_action(navstack)
+    # ld.add_action(nav2_lifecycle_map_mangr)
+    # ld.add_action(map_server)
+    # ld.add_action(nav2_lifecycle_amcl_mangr)
+    # ld.add_action(amcl)
+    #ld.add_action(start_async_slam_toolbox_node)
 
     return ld
 
-
-
-
-    # Launch them all!
-    return LaunchDescription([
-        rsp,
-        gazebo,
-        spawn_entity,
-        diff_drive_spawner,
-        joint_broad_spawner,
-        #start_async_slam_toolbox_node
-    ])
