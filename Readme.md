@@ -14,3 +14,10 @@ install ros-foxy-ros2-control ros-foxy-ros2-controllers slam-toolbox
 
 might need ros-foxy-gazebo-ros2-control
 
+need twist mux 
+
+sudo apt install ros-humble-twist-mux
+
+ros2 launch nav2_bringup localization_launch.py map:=/home/engineerbear/Documents/prac_ws/src/snail_bot/worlds/map_save.yaml use_sim_time:=true
+
+run localisation

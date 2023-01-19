@@ -25,11 +25,11 @@ def generate_launch_description():
     
     param_dir = LaunchConfiguration(
         'params_file',
-        default=os.path.join('/home/mrs/test_ws/src/snail_bot/param/',param_file_name))
+        default=os.path.join('/home/engineerbear/Documents/prac_ws/src/snail_bot/param/',param_file_name))
 
     map_dir = LaunchConfiguration(
         'map',
-        default=os.path.join('/home/mrs/test_ws/','map_save.yaml'))
+        default=os.path.join('/home/engineerbear/Documents/prac_ws/src/snail_bot/worlds/','map_save.yaml'))
 
     declare_map =  DeclareLaunchArgument(
         'map',
@@ -115,14 +115,15 @@ def generate_launch_description():
     #       {'node_names': ['map_server']}  
     #     ])
 
-    # amcl = Node(
-    #     parameters=[
-    #       {'use_sim_time': use_sim_time}
-    #     ],
-    #     package='nav2_amcl',
-    #     executable='amcl',
-    #     name='amcl',
-    #     output='screen')
+    amcl = Node(
+        parameters=[
+          {'use_sim_time': use_sim_time},
+          {'map':  map_dir}
+        ],
+        package='nav2_brirngup',
+        executable='localization.launch.py',
+        name='amcl',
+        output='screen')
 
     # nav2_lifecycle_amcl_mangr = Node(
     #     package='nav2_util',
@@ -157,11 +158,11 @@ def generate_launch_description():
     ld.add_action(spawn_entity)
     ld.add_action(diff_drive_spawner)
     ld.add_action(joint_broad_spawner)
-    ld.add_action(navstack)
+    #ld.add_action(navstack)
     # ld.add_action(nav2_lifecycle_map_mangr)
     # ld.add_action(map_server)
     # ld.add_action(nav2_lifecycle_amcl_mangr)
-    # ld.add_action(amcl)
+    #ld.add_action(amcl)
     #ld.add_action(start_async_slam_toolbox_node)
 
     return ld

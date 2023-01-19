@@ -26,7 +26,7 @@
 
     <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-            <parameters>/home/mrs/test_ws/src/snail_bot/config/my_controllers.yaml</parameters>
+            <parameters>/home/engineerbear/Documents/prac_ws/src/snail_bot/config/my_controllers.yaml</parameters>
         </plugin>
     </gazebo>
 
