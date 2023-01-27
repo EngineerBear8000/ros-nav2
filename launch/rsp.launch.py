@@ -18,7 +18,7 @@ def generate_launch_description():
     # Process the URDF file
     #pkg_path = os.path.join(get_package_share_directory('snail_bot'))
     #xacro_file = os.path.join(pkg_path,'description','robot.urdf.xacro')
-    xacro_file = '/home/engineerbear/Documents/prac_ws/src/snail_bot/description/robot.urdf.xacro'
+    xacro_file = os.path.join(get_package_share_directory('snail_bot'), 'description','robot.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
     
     # Create a robot_state_publisher node

@@ -1,0 +1,2 @@
+Invoking command in '/home/mrs/test_ws/src/snail_bot/build/snail_bot': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/mrs/test_ws/src/snail_bot -DCMAKE_INSTALL_PREFIX=/home/mrs/test_ws/src/snail_bot/install/snail_bot
+Invoked command in '/home/mrs/test_ws/src/snail_bot/build/snail_bot' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/mrs/test_ws/src/snail_bot -DCMAKE_INSTALL_PREFIX=/home/mrs/test_ws/src/snail_bot/install/snail_bot

@@ -30,7 +30,7 @@ def generate_launch_description():
     
     param_dir = LaunchConfiguration(
         'params_file',
-        default=os.path.join('/home/engineerbear/Documents/prac_ws/src/snail_bot/param/',param_file_name))
+        default=os.path.join(get_package_share_directory('snail_bot'),'param',param_file_name))
     
 
     #arg declarations

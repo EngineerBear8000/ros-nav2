@@ -37,7 +37,7 @@ def generate_launch_description():
             package='twist_mux',
             executable='twist_mux',
             output='screen',
-            remappings={('/cmd_vel_out', 'def_cont/cmd_vel_unstamped')},
+            remappings={('/cmd_vel_out', 'diff_cont/cmd_vel_unstamped')},
             parameters=[twist_mux_params
                         #{'use_sim_time': use_sim_time}
                         ],
@@ -56,6 +56,7 @@ def generate_launch_description():
 
     ld.add_action(joy_node)
     ld.add_action(teleop_node)
+    ld.add_action(twist_mux_node)
     
     #ld.add_action(twist_mux_node)
 

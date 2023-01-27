@@ -1,0 +1,4 @@
+Invoking command in '/home/mrs/test_ws/src/snail_bot/build/snail_bot': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/mrs/test_ws/src/snail_bot/build/snail_bot -- -j8 -l8
+Invoked command in '/home/mrs/test_ws/src/snail_bot/build/snail_bot' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/mrs/test_ws/src/snail_bot/build/snail_bot -- -j8 -l8
+Invoking command in '/home/mrs/test_ws/src/snail_bot/build/snail_bot': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/mrs/test_ws/src/snail_bot/build/snail_bot
+Invoked command in '/home/mrs/test_ws/src/snail_bot/build/snail_bot' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/mrs/test_ws/src/snail_bot/build/snail_bot
