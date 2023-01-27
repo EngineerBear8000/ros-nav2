@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+073f817cee7605b61f43c4a944893c3f CMakeFiles/snail_bot_uninstall

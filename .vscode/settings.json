@@ -1,0 +1,18 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/engineerbear/Documents/prac_ws/build/nav2_project",
+        "/home/engineerbear/Documents/prac_ws/install/nav2_project/lib/python3.10/site-packages",
+        "/home/engineerbear/Documents/prac_ws/build/holonomic",
+        "/home/engineerbear/Documents/prac_ws/install/holonomic/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/engineerbear/Documents/prac_ws/build/nav2_project",
+        "/home/engineerbear/Documents/prac_ws/install/nav2_project/lib/python3.10/site-packages",
+        "/home/engineerbear/Documents/prac_ws/build/holonomic",
+        "/home/engineerbear/Documents/prac_ws/install/holonomic/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

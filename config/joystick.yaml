@@ -7,14 +7,14 @@ joy_node:
 teleop_node:
   ros__parameters:
     axis_linear:
-      x: 4
+      x: 4    #controller input number for x axis of bot(right stick vertical)
     scale_linear:
-      x: 0.5
+      x: 0.5    #normal speed
     scale_linear_turbo:
-      x: 1.0
+      x: 1.0    #turbo speed
 
     axis_angular:
-      yaw: 3
+      yaw: 3    #controller input number for yaw(right stick horiz)
     scale_angular:
       yaw: 0.5
     scale_angular_turbo:
