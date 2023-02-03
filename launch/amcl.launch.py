@@ -93,19 +93,19 @@ def generate_launch_description():
         {'autostart': True},
         {'use_sim_time': use_sim_time},
         {'bond_timeout':0.0},
-        {'node_names': ['amcl','map_server']}  
+        {'node_names': ['map_server']}  
         ])
 
     ld = LaunchDescription()
     ld.add_action(declare_use_sim_time_argument)
     ld.add_action(declare_map)
     ld.add_action(declare_params)
-    ld.add_action(declare_amcl)
+    #ld.add_action(declare_amcl)
 
-    ld.add_action(amcl)
+    #ld.add_action(amcl)
     ld.add_action(nav2_lifecycle_mangr)
     ld.add_action(map_server)
 
-    #ld.add_action(navstack)
+    ld.add_action(navstack)
 
     return ld

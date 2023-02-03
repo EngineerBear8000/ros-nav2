@@ -22,7 +22,10 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     slam_params_file = LaunchConfiguration('slam_params_file')
     param_file_name =  'snail.yaml'
-   
+    
+    remappings = [('/tf', 'tf'),
+                  ('/tf_static', 'tf_static')]\
+                  
     param_dir = LaunchConfiguration(
         'params_file',
         default=os.path.join(get_package_share_directory('snail_bot'),'param',param_file_name))
