@@ -32,6 +32,7 @@ def generate_launch_description():
         'params_file',
         default=os.path.join(get_package_share_directory('snail_bot'),'param',param_file_name))
     
+    slam_params_file = LaunchConfiguration('slam_params_file')
 
     #arg declarations
     declare_use_sim_time_argument = DeclareLaunchArgument(
@@ -53,13 +54,22 @@ def generate_launch_description():
         'amcl_yaml_0',
         default_value='amcl_yaml_dir',
         description='Full path to amcl file to load')
+    
+    declare_slam_params_file_cmd = DeclareLaunchArgument(
+        'slam_params_file',
+        default_value=os.path.join(get_package_share_directory("slam_toolbox"),
+                                   'config', 'mapper_params_online_async.yaml'),
+        description='Full path to the ROS2 parameters file to use for the slam_toolbox node')
+
+
 
     navstack = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
             launch_arguments={
                 'map': map_dir,
                 'use_sim_time': use_sim_time,
-                'params_file': param_dir}.items(),
+                #'params_file': param_dir
+                }.items(),
     )
 
     map_server = Node(
@@ -87,7 +97,7 @@ def generate_launch_description():
     nav2_lifecycle_mangr = Node(
         package='nav2_lifecycle_manager',
         executable='lifecycle_manager',
-        name='lifecycle_manager',
+        name='lifecycle_manager_ol',
         output='screen',
         parameters=[
         {'autostart': True},
@@ -96,16 +106,28 @@ def generate_launch_description():
         {'node_names': ['map_server']}  
         ])
 
+    start_async_slam_toolbox_node = Node(
+        parameters=[
+          slam_params_file,
+          {'use_sim_time': use_sim_time}
+        ],
+        package='slam_toolbox',
+        executable='async_slam_toolbox_node',
+        name='slam_toolbox',
+        output='screen')
+    
     ld = LaunchDescription()
     ld.add_action(declare_use_sim_time_argument)
     ld.add_action(declare_map)
-    ld.add_action(declare_params)
+    #ld.add_action(declare_params)
     #ld.add_action(declare_amcl)
+    ld.add_action(declare_slam_params_file_cmd)
 
     #ld.add_action(amcl)
-    ld.add_action(nav2_lifecycle_mangr)
-    ld.add_action(map_server)
+    #ld.add_action(nav2_lifecycle_mangr)
+    #ld.add_action(map_server)
 
+    ld.add_action(start_async_slam_toolbox_node)
     ld.add_action(navstack)
 
     return ld

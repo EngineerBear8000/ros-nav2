@@ -20,7 +20,7 @@ def generate_launch_description():
     package_name='snail_bot' #<--- CHANGE ME
 
     use_sim_time = LaunchConfiguration('use_sim_time')
-    slam_params_file = LaunchConfiguration('slam_params_file')
+    
     param_file_name =  'snail.yaml'
     
     remappings = [('/tf', 'tf'),
@@ -35,13 +35,6 @@ def generate_launch_description():
         'use_sim_time',
         default_value='true',
         description='Use simulation/Gazebo clock')
-
-    declare_slam_params_file_cmd = DeclareLaunchArgument(
-        'slam_params_file',
-        default_value=os.path.join(get_package_share_directory("slam_toolbox"),
-                                   'config', 'mapper_params_online_async.yaml'),
-        description='Full path to the ROS2 parameters file to use for the slam_toolbox node')
-
 
     rsp = IncludeLaunchDescription(         #robot state publisher "node"
                 PythonLaunchDescriptionSource([os.path.join(
@@ -80,16 +73,6 @@ def generate_launch_description():
         arguments=["joint_broad"],
     )
 
-    start_async_slam_toolbox_node = Node(
-        parameters=[
-          slam_params_file,
-          {'use_sim_time': use_sim_time}
-        ],
-        package='slam_toolbox',
-        executable='async_slam_toolbox_node',
-        name='slam_toolbox',
-        output='screen')
-
     # amcl = Node(
     #     parameters=[
     #       {'use_sim_time': use_sim_time},
@@ -105,7 +88,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     ld.add_action(declare_use_sim_time_argument)
-    #ld.add_action(declare_slam_params_file_cmd)
+    
     
     
 
@@ -119,7 +102,7 @@ def generate_launch_description():
 
     
     
-    #ld.add_action(start_async_slam_toolbox_node)
+    
 
     return ld
 
